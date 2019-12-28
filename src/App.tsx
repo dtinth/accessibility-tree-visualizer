@@ -193,12 +193,20 @@ const Tree = (props: { nodeId: string }): JSX.Element => {
         </Block>
       )
     }
+    case 'SVGRoot': {
+      return <></>
+    }
+    case 'LineBreak': {
+      return <br />
+    }
     case 'GenericContainer':
     case 'generic':
     case 'LayoutTable':
     case 'form':
     case 'Label':
     case 'dialog':
+    case 'DescriptionListTerm':
+    case 'DescriptionListDetail':
     case 'Anchor': {
       return <>{renderChildren()}</>
     }
@@ -219,6 +227,13 @@ const Tree = (props: { nodeId: string }): JSX.Element => {
         <Block type={joinWords([getName(), 'group'])}>{renderChildren()}</Block>
       )
     }
+    case 'article': {
+      return (
+        <Block type={joinWords([getName(), 'article'])}>
+          {renderChildren()}
+        </Block>
+      )
+    }
     case 'contentinfo': {
       return (
         <Block type={joinWords([getName(), 'content information'])}>
@@ -236,6 +251,13 @@ const Tree = (props: { nodeId: string }): JSX.Element => {
     case 'search': {
       return (
         <Block type={joinWords([getName(), 'search'])}>
+          {renderChildren()}
+        </Block>
+      )
+    }
+    case 'DescriptionList': {
+      return (
+        <Block type={joinWords([getName(), 'definition list'])}>
           {renderChildren()}
         </Block>
       )
@@ -374,7 +396,7 @@ function renderError(text: string) {
 }
 
 const App: React.FC = () => {
-  const [tree, setTree] = useState(exampleTree)
+  const [tree, setTree] = useState<Tree>(exampleTree)
   useEffect(() => {
     window.ondragover = (e: DragEvent) => {
       e.preventDefault()
@@ -393,7 +415,9 @@ const App: React.FC = () => {
       try {
         var dt = e.dataTransfer!
         var files = dt.files
-        setTree(JSON.parse(await (files[0] as any).text()))
+        const json = await (files[0] as any).text()
+        setTree(JSON.parse(json))
+        sessionStorage.accessibilityTree = json
       } catch (e) {
         alert(String(e))
       }
@@ -401,16 +425,20 @@ const App: React.FC = () => {
     document.onpaste = async (e: ClipboardEvent) => {
       e.preventDefault()
       e.stopPropagation()
-      document.documentElement.classList.remove('loaded')
       try {
         const text = e.clipboardData!.getData('text')
         await new Promise(resolve => requestAnimationFrame(resolve))
         setTree(JSON.parse(text))
-        document.documentElement.classList.add('loaded')
+        sessionStorage.accessibilityTree = text
       } catch (e) {
         alert(String(e))
       }
     }
+    setTimeout(() => {
+      if (sessionStorage.accessibilityTree) {
+        setTree(JSON.parse(sessionStorage.accessibilityTree))
+      }
+    })
   }, [])
   return (
     <div className="App">
