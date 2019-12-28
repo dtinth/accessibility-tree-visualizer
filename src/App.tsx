@@ -210,6 +210,9 @@ const Tree = (props: { nodeId: string }): JSX.Element => {
     case 'Anchor': {
       return <>{renderChildren()}</>
     }
+    case 'strong': {
+      return <strong>{renderChildren()}</strong>
+    }
     case 'banner': {
       return (
         <Block type={joinWords([getName(), 'banner'])}>
