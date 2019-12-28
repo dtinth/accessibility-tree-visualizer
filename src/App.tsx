@@ -194,6 +194,7 @@ const Tree = (props: { nodeId: string }): JSX.Element => {
       )
     }
     case 'GenericContainer':
+    case 'generic':
     case 'LayoutTable':
     case 'form':
     case 'Label':
@@ -375,34 +376,34 @@ function renderError(text: string) {
 const App: React.FC = () => {
   const [tree, setTree] = useState(exampleTree)
   useEffect(() => {
-    window.ondragover = e => {
+    window.ondragover = (e: DragEvent) => {
       e.preventDefault()
       e.stopPropagation()
       document.documentElement.classList.add('dropit')
     }
-    window.ondragleave = e => {
+    window.ondragleave = (e: DragEvent) => {
       e.preventDefault()
       e.stopPropagation()
       document.documentElement.classList.remove('dropit')
     }
-    window.ondrop = async e => {
+    window.ondrop = async (e: DragEvent) => {
       e.preventDefault()
       e.stopPropagation()
       document.documentElement.classList.remove('dropit')
       try {
-        var dt = e.dataTransfer
+        var dt = e.dataTransfer!
         var files = dt.files
-        setTree(JSON.parse(await files[0].text()))
+        setTree(JSON.parse(await (files[0] as any).text()))
       } catch (e) {
         alert(String(e))
       }
     }
-    document.onpaste = async e => {
+    document.onpaste = async (e: ClipboardEvent) => {
       e.preventDefault()
       e.stopPropagation()
       document.documentElement.classList.remove('loaded')
       try {
-        const text = e.clipboardData.getData('text')
+        const text = e.clipboardData!.getData('text')
         await new Promise(resolve => requestAnimationFrame(resolve))
         setTree(JSON.parse(text))
         document.documentElement.classList.add('loaded')
