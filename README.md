@@ -44,6 +44,6 @@ Moreover, the resulting webpage is not accessible at all.
    node get-ax-tree https://github.com/ > tree.json
    ```
 
-2. Drag the JSON file into the webpage at https://csl7g.csb.app/.
+2. Drag the JSON file into the webpage at https://codesandbox.io/s/github/dtinth/accessibility-tree-visualizer/tree/master/?fontsize=14&hidenavigation=1&theme=dark&view=preview.
 
-   (Alternatively, if you have your JSON tree copied into clipboard, you can paste it into the webpage and it will load the tree from the clipboard.)
+   (Also: If you have your JSON tree copied into clipboard, you can paste it into the webpage and it will load the tree from the clipboard.)
