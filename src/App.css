@@ -1,0 +1,66 @@
+.App {
+  padding: 16px;
+}
+
+.Block {
+  border: 1px solid #555453;
+  margin: 8px 0;
+}
+.Block-title {
+  background: #252423;
+  color: #aba6a5;
+}
+.Block-content {
+  padding: 4px;
+}
+
+.Span::before {
+  content: '[';
+  color: #8b8685;
+}
+.Span::after {
+  content: ']';
+  color: #8b8685;
+}
+.Span-type {
+  color: #aba6a5;
+}
+
+.Tree ul {
+  margin: 8px 0;
+  padding: 0;
+  padding-left: 1.5em;
+}
+.Tree p,
+.Tree li {
+  margin: 8px 0;
+}
+
+.Tree h1::before,
+.Tree h2::before,
+.Tree h3::before,
+.Tree h4::before,
+.Tree h5::before,
+.Tree h6::before {
+  color: #aba6a5;
+  display: block;
+  font-size: 1rem;
+}
+.Tree h1::before {
+  content: 'heading level 1 ';
+}
+.Tree h2::before {
+  content: 'heading level 2 ';
+}
+.Tree h3::before {
+  content: 'heading level 3 ';
+}
+.Tree h4::before {
+  content: 'heading level 4 ';
+}
+.Tree h5::before {
+  content: 'heading level 5 ';
+}
+.Tree h6::before {
+  content: 'heading level 6 ';
+}
