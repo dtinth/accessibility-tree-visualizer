@@ -18,7 +18,7 @@ Moreover, the resulting webpage is not accessible at all.
    ;(async () => {
      const browser = await puppeteer.launch()
      const page = await browser.newPage()
-     await page.goto('https://example.com')
+     await page.goto(process.argv[2])
      const client =
        /** @type {import('puppeteer-core').CDPSession} */ (page._client)
      try {
