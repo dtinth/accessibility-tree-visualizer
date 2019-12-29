@@ -203,6 +203,7 @@ const Tree = (props: { nodeId: string }): JSX.Element => {
     case 'generic':
     case 'LayoutTable':
     case 'form':
+    case 'Details':
     case 'Label':
     case 'dialog':
     case 'DescriptionListTerm':
@@ -258,6 +259,12 @@ const Tree = (props: { nodeId: string }): JSX.Element => {
         </Block>
       )
     }
+    case 'table': {
+      // TODO: "table M column, N rows"
+      return (
+        <Block type={joinWords([getName(), 'table'])}>{renderChildren()}</Block>
+      )
+    }
     case 'DescriptionList': {
       return (
         <Block type={joinWords([getName(), 'definition list'])}>
@@ -307,8 +314,15 @@ const Tree = (props: { nodeId: string }): JSX.Element => {
     }
     case 'combobox': {
       return (
-        <Span type={getStateText() + 'button'} placement="after">
+        <Span type={getStateText() + 'combobox'} placement="after">
           {getName()}
+        </Span>
+      )
+    }
+    case 'DisclosureTriangle': {
+      return (
+        <Span type={getStateText() + 'disclosure triangle'} placement="after">
+          {renderChildren()}
         </Span>
       )
     }

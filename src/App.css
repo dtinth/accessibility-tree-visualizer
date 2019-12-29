@@ -15,11 +15,11 @@
 }
 
 .Span::before {
-  content: '[';
+  content: '[ ';
   color: #8b8685;
 }
 .Span::after {
-  content: ']';
+  content: ' ]';
   color: #8b8685;
 }
 .Span-type {
